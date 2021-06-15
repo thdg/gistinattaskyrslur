@@ -1,0 +1,86 @@
+<html>
+<head>
+  <link rel="icon" type="image/png" href="static/icon.svg"/>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+</head>
+<body class="bg-light">
+  <div class="container">
+    <div class="py-5 text-center">
+      <img class="d-block mx-auto mb-4" src="static/icon.svg" alt="" width="72" height="57">
+      <h2>Skil á gistináttaskýrslum frá Airbnb</h2>
+      <p class="lead">
+        Einföld skil á gistináttaskýrslum frá Airbnb leigu.
+      </p>
+      <div class="row mb-4">
+        <div class="col-sm-8 offset-sm-2 text-start">
+          <h3 class="ms-2">Leiðbeiningar</h3>
+          <ul class="list-group">
+            <li class="list-group-item">Farðu í Bókanir (Reservations) > Lokið (Completed).</li>
+            <li class="list-group-item">Síaðu út viðeigandi mánuð.</li>
+            <li class="list-group-item">Veldu Flytja út (Export) > Sækja CSV-skrá (Get CSV-file)</li>
+            <li class="list-group-item">Settu skjalið í formið hér að neðan og smelltu á Búa til skýrslu.</li>
+          </ul>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-lg-8 offset-lg-2">
+          <form action="" method="POST" enctype="multipart/form-data">
+            <div class="row text-start">
+              <div class="col-sm-6">
+                <label for="file-input" class="form-label">Bókanir (CSV-skrá)</label>
+                <input id="file-input" class="form-control" type="file" name="file"/>
+              </div>
+              <div class="col-sm-3">
+                <label for="month-select" class="form-label">Mánuður</label>
+                <select class="form-select" name="month" id="month-select">
+                  <option value="1" {% if default_month == 1 %}selected{% endif %}>janúar</option>
+                  <option value="2" {% if default_month == 2 %}selected{% endif %}>febrúar</option>
+                  <option value="3" {% if default_month == 3 %}selected{% endif %}>mars</option>
+                  <option value="4" {% if default_month == 4 %}selected{% endif %}>apríl</option>
+                  <option value="5" {% if default_month == 5 %}selected{% endif %}>maí</option>
+                  <option value="6" {% if default_month == 6 %}selected{% endif %}>júní</option>
+                  <option value="7" {% if default_month == 7 %}selected{% endif %}>júlí</option>
+                  <option value="8" {% if default_month == 8 %}selected{% endif %}>ágúst</option>
+                  <option value="9" {% if default_month == 9 %}selected{% endif %}>september</option>
+                  <option value="10" {% if default_month == 10 %}selected{% endif %}>október</option>
+                  <option value="11" {% if default_month == 11 %}selected{% endif %}>nóvember</option>
+                  <option value="12" {% if default_month == 12 %}selected{% endif %}>desember</option>
+                </select>
+              </div>
+              <div class="col-sm-3">
+                <button class="btn btn-primary" type="submit" style="margin-top: 30px;">Búa til skýrslu</button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+    {% if stats %}
+    <div class="row g-5">
+      <div class="col-md-8 mb-3">
+        <h2>Gistináttaskýrsla</h2>
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th>Land</th>
+              <th>Gestir</th>
+              <th>Nætur</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for c, s in stats["countries"].items() %}
+            <tr>
+              <td>{{ c }}</td>
+              <td>{{ s["guests"] }}</td>
+              <td>{{ s["nights"] }}</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+        <p>Útleigð herbergi: <span>{{ stats["rooms"] }}</span></p>
+        <p>Heildarfjöldi gistinátta: <span>{{ stats["total_nights"] }}</span></p>
+      </div>
+    </div>
+    {% endif %}
+  </body>
+  </html>
