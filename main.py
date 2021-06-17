@@ -78,6 +78,7 @@ def calculate_stats(reservations, month=None):
             total_nights += nights * line["guests"]
     return {
         "countries": dict((key, {
+            "name": R2N.get(key),
             "guests": country_guests[key], 
             "nights": country_nights[key],
         }) for key in country_guests.keys()),
@@ -89,7 +90,7 @@ def calculate_stats(reservations, month=None):
 def print_stats(stats):
     print("-"*10)
     for key, cstat in stats["countries"].items():
-        print(f"{R2N.get(key, key):<50}\t{cstat['guests']:>5}\t{cstat['nights']:>5}")
+        print(f"{cstat['name'] or key:<50}\t{cstat['guests']:>5}\t{cstat['nights']:>5}")
 
     print("-"*10)
     print("Útleigð herbergi:", stats["rooms"])

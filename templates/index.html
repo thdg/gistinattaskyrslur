@@ -70,7 +70,7 @@
           <tbody>
             {% for c, s in stats["countries"].items() %}
             <tr>
-              <td>{{ c }}</td>
+              <td>{{ s["name"] }}</td>
               <td>{{ s["guests"] }}</td>
               <td>{{ s["nights"] }}</td>
             </tr>
