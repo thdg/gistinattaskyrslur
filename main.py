@@ -26,6 +26,7 @@ from collections import defaultdict
 from datetime import datetime, timedelta
 import phonenumbers
 from phonenumbers import COUNTRY_CODE_TO_REGION_CODE as C2R
+from utils.regions import R2N
 
 
 def read_reservations(rfile):
@@ -86,9 +87,11 @@ def calculate_stats(reservations, month=None):
     
 
 def print_stats(stats):
+    print("-"*10)
     for key, cstat in stats["countries"].items():
-        print(f"{key}\t{cstat['guests']}\t{cstat['nights']}")
+        print(f"{R2N.get(key, key):<50}\t{cstat['guests']:>5}\t{cstat['nights']:>5}")
 
+    print("-"*10)
     print("Útleigð herbergi:", stats["rooms"])
     print("Heildarfjöldi gistinátta:", stats["total_nights"]) 
 
